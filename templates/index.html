@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interior AI — Floor Plan to Furnished Home</title>
+<style>
+:root { --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#f4f5f7; --muted:#9aa3b2;
+  --line:#2a2f3a; --accent:#e8b06b; --accent2:#7fb4d8; --ok:#5fbf8f; --err:#e05252; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); }
+a { color:var(--accent2); text-decoration:none; }
+.wrap { max-width:1000px; margin:0 auto; padding:0 20px; }
+header { padding:56px 0 28px; text-align:center; }
+header h1 { font-size:42px; margin:0; letter-spacing:-1px; }
+header h1 span { color:var(--accent); }
+header p { color:var(--muted); font-size:18px; margin:10px auto 0; max-width:640px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:28px; margin:28px 0; }
+.drop { border:2px dashed var(--line); border-radius:14px; padding:44px 20px; text-align:center;
+  cursor:pointer; transition:border-color .15s, background .15s; }
+.drop:hover, .drop.over { border-color:var(--accent); background:var(--panel2); }
+.drop .ico { font-size:40px; }
+.drop b { display:block; font-size:18px; margin-top:10px; }
+.drop small { color:var(--muted); }
+input[type=file] { display:none; }
+.row { display:flex; gap:14px; flex-wrap:wrap; margin-top:20px; align-items:center; }
+label { color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.5px; }
+select, input[type=text] { background:var(--panel2); color:var(--ink); border:1px solid var(--line);
+  border-radius:10px; padding:10px 14px; font-size:15px; }
+button.go { margin-left:auto; background:var(--accent); color:#1a1206; font-weight:700; border:none;
+  border-radius:10px; padding:12px 26px; font-size:16px; cursor:pointer; }
+button.go:disabled { opacity:.5; cursor:not-allowed; }
+.projects h2 { font-size:20px; margin:0 0 14px; }
+.proj { display:flex; align-items:center; gap:16px; background:var(--panel2); border:1px solid var(--line);
+  border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+.proj .name { font-weight:600; font-size:16px; min-width:140px; }
+.proj .when { color:var(--muted); font-size:12px; }
+.steps { display:flex; gap:6px; flex:1; flex-wrap:wrap; }
+.step { font-size:11px; padding:4px 10px; border-radius:14px; border:1px solid var(--line); color:var(--muted); }
+.step.done { border-color:var(--ok); color:var(--ok); }
+.step.active { border-color:var(--accent); color:var(--accent); }
+.step.fail { border-color:var(--err); color:var(--err); }
+.open { background:var(--accent2); color:#04121c; font-weight:700; padding:8px 16px; border-radius:9px; }
+.empty { color:var(--muted); }
+.msg { margin-top:14px; font-size:14px; }
+.msg.err { color:var(--err); }
+footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Interior <span>AI</span></h1>
+    <p>Upload a floor plan (image or video) — get a complete interior design with real products,
+       live prices, and buy links from Amazon, Walmart, Target &amp; more.</p>
+  </div>
+</header>
+<div class="wrap">
+  <div class="card">
+    <div class="drop" id="drop">
+      <div class="ico">📐</div>
+      <b>Drop your floor plan here, or click to browse</b>
+      <small>Images (PNG, JPG, WEBP) or video (MP4, MOV, MKV) — max 200 MB</small>
+      <input type="file" id="file" accept=".png,.jpg,.jpeg,.webp,.gif,.bmp,.mp4,.mov,.avi,.mkv,.webm,.m4v">
+    </div>
+    <div class="row">
+      <div>
+        <label for="pname">Project name</label>
+        <div><input type="text" id="pname" placeholder="my-apartment" style="margin-top:6px"></div>
+      </div>
+      <div>
+        <label for="style">Design style</label>
+        <div>
+          <select id="style" style="margin-top:6px">
+            {% for s in styles %}<option value="{{ s }}">{{ s|title }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+      <button class="go" id="go" disabled>Design my space →</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="projects">
+    <h2>Your projects</h2>
+    <div id="list">
+      {% for p in projects %}
+      <div class="proj" data-name="{{ p.name }}">
+        <div>
+          <div class="name">{{ p.name }}</div>
+          <div class="when">{{ p.updated_at or "" }}</div>
+        </div>
+        <div class="steps" data-steps></div>
+        <a class="open" href="/project/{{ p.name }}/catalog" {% if not p.done %}style="visibility:hidden"{% endif %}>Open catalog</a>
+      </div>
+      {% else %}
+      <p class="empty">No projects yet — upload a floor plan above.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<footer>Interior AI · floor plan in → furnished home out</footer>
+
+<script>
+const STAGES = ["analyze","design","collect","render","build"];
+const LABELS = {analyze:"Analyzing", design:"Designing", collect:"Products", render:"Rendering", build:"Building"};
+let selectedFile = null;
+const drop = document.getElementById('drop'), file = document.getElementById('file'),
+      go = document.getElementById('go'), msg = document.getElementById('msg');
+
+drop.onclick = () => file.click();
+file.onchange = () => { selectedFile = file.files[0] || null; go.disabled = !selectedFile;
+  if (selectedFile) drop.querySelector('b').textContent = selectedFile.name; };
+['dragover','dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.classList.toggle('over', ev === 'dragover');
+  if (ev === 'drop' && e.dataTransfer.files.length) {
+    file.files = e.dataTransfer.files; selectedFile = e.dataTransfer.files[0];
+    go.disabled = !selectedFile; drop.querySelector('b').textContent = selectedFile.name;
+  }
+}));
+
+go.onclick = async () => {
+  if (!selectedFile) return;
+  const fd = new FormData();
+  fd.append('file', selectedFile);
+  fd.append('style', document.getElementById('style').value);
+  const pn = document.getElementById('pname').value.trim();
+  if (pn) fd.append('name', pn);
+  go.disabled = true; msg.textContent = 'Uploading & starting…'; msg.className = 'msg';
+  try {
+    const r = await fetch('/upload', {method:'POST', body:fd});
+    const j = await r.json();
+    if (j.error) throw new Error(j.error);
+    msg.textContent = 'Started! Your design is being built — refresh in a moment to track progress.';
+    setTimeout(() => location.reload(), 1200);
+  } catch (e) { msg.textContent = 'Error: ' + e.message; msg.className = 'msg err'; go.disabled = false; }
+};
+
+// live progress polling
+async function poll() {
+  const rows = document.querySelectorAll('.proj');
+  for (const row of rows) {
+    const name = row.dataset.name;
+    try {
+      const r = await fetch('/project/' + name + '/status');
+      const s = await r.json();
+      const steps = row.querySelector('[data-steps]');
+      steps.innerHTML = '';
+      const cur = s.current_stage || '';
+      STAGES.forEach(st => {
+        const el = document.createElement('span');
+        el.className = 'step';
+        el.textContent = LABELS[st];
+        const info = (s.stages || {})[st];
+        if (s.done || (info && info.progress === 100 && st !== cur)) el.classList.add('done');
+        else if (st === cur) el.classList.add('active');
+        if (s.error && s.error.stage === st) el.classList.add('fail');
+        steps.appendChild(el);
+      });
+      const open = row.querySelector('.open');
+      if (s.done && s.has_catalog) { open.style.visibility = 'visible'; }
+    } catch (e) {}
+  }
+}
+poll();
+setInterval(poll, 4000);
+</script>
+</body>
+</html>
