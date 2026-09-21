@@ -1,0 +1,45 @@
+{
+  "rooms": [
+    {
+      "name": "Living Room",
+      "area_m2": 28.7,
+      "description": "A spacious main living area located in the upper-left quadrant with a large window."
+    },
+    {
+      "name": "Kitchen",
+      "area_m2": 20.5,
+      "description": "An enclosed kitchen located in the lower-left quadrant with direct access to the balcony."
+    },
+    {
+      "name": "Bedroom 1",
+      "area_m2": 28.7,
+      "description": "The primary bedroom located in the upper-right quadrant with a large window."
+    },
+    {
+      "name": "Bedroom 2",
+      "area_m2": 13.5,
+      "description": "A secondary bedroom located in the lower-right quadrant with a window."
+    },
+    {
+      "name": "Bath",
+      "area_m2": 7.0,
+      "description": "A central bathroom accessible from the main hallway."
+    }
+  ],
+  "total_area_m2": 98.4,
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "features": [
+    "Balcony accessible from the kitchen",
+    "Large windows in the living room and Bedroom 1",
+    "Central hallway connecting the bedrooms and bathroom"
+  ],
+  "summary": "A well-proportioned 2-bedroom apartment layout featuring a large living room, separate kitchen with balcony access, and a centrally located bathroom.",
+  "input_type": "video",
+  "input_file": "input.mp4",
+  "analyzed_images": [
+    "frame_000.jpg",
+    "frame_096.jpg",
+    "frame_160.jpg"
+  ]
+}

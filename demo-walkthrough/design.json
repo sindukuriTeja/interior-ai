@@ -1,0 +1,372 @@
+{
+  "project": "demo-walkthrough",
+  "style": "modern",
+  "mood": "clean, warm modern",
+  "palette": "warm whites, soft greys, walnut wood, brushed brass accents",
+  "materials": "oak flooring, matte lacquer, boucle and linen, glass",
+  "lighting": "layered warm-white LED, recessed spots + statement pendants",
+  "total_area_m2": 98.4,
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "features": [
+    "Balcony accessible from the kitchen",
+    "Large windows in the living room and Bedroom 1",
+    "Central hallway connecting the bedrooms and bathroom"
+  ],
+  "rooms": [
+    {
+      "name": "Living Room",
+      "key": "living",
+      "area_m2": 28.7,
+      "description": "A spacious main living area located in the upper-left quadrant with a large window.",
+      "concept": "The living room is the social heart of the home. A low-profile sofa anchors the space with a layered rug beneath, balanced by an accent armchair and a warm wood coffee table. Lighting is layered — recessed spots for general light, a floor lamp for reading, and a statement pendant over the seating. Soft textiles and one or two art pieces keep it relaxed.",
+      "product_count": 8
+    },
+    {
+      "name": "Kitchen",
+      "key": "kitchen",
+      "area_m2": 20.5,
+      "description": "An enclosed kitchen located in the lower-left quadrant with direct access to the balcony.",
+      "concept": "The kitchen balances function and warmth. A clean work surface runs along the wall with an island or cart for casual dining, topped by pendant lights. Quality cookware and a good coffee machine make it a place to gather. Natural wood and matte finishes keep it from feeling cold.",
+      "product_count": 9
+    },
+    {
+      "name": "Bedroom 1",
+      "key": "bedroom",
+      "area_m2": 28.7,
+      "description": "The primary bedroom located in the upper-right quadrant with a large window.",
+      "concept": "Each bedroom is a calm retreat. A quality bed with layered bedding sits on a soft rug, flanked by matching nightstands and warm bedside lamps. A dresser provides storage, blackout curtains protect sleep, and a single art piece adds personality without clutter.",
+      "product_count": 8
+    },
+    {
+      "name": "Bedroom 2",
+      "key": "bedroom",
+      "area_m2": 13.5,
+      "description": "A secondary bedroom located in the lower-right quadrant with a window.",
+      "concept": "Each bedroom is a calm retreat. A quality bed with layered bedding sits on a soft rug, flanked by matching nightstands and warm bedside lamps. A dresser provides storage, blackout curtains protect sleep, and a single art piece adds personality without clutter.",
+      "product_count": 8
+    },
+    {
+      "name": "Bath",
+      "key": "bath",
+      "area_m2": 7.0,
+      "description": "A central bathroom accessible from the main hallway.",
+      "concept": "The bathroom reads like a small spa. A clean vanity with a lit mirror, a rainfall shower, and soft towels create a calm, functional space. Neutral tones and good lighting make the room feel larger and brighter.",
+      "product_count": 6
+    }
+  ],
+  "shopping_list": [
+    {
+      "name": "3-Seater Sofa",
+      "category": "Seating",
+      "query": "modern 3 seater fabric sofa",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Armchair",
+      "category": "Seating",
+      "query": "modern accent armchair",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Coffee Table",
+      "category": "Tables",
+      "query": "modern wooden coffee table",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "TV Console / Media Unit",
+      "category": "Storage",
+      "query": "modern tv stand media console",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Area Rug",
+      "category": "Textiles",
+      "query": "large living room area rug",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Floor Lamp",
+      "category": "Lighting",
+      "query": "modern floor lamp",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Wall Art (set of 3)",
+      "category": "Decor",
+      "query": "abstract wall art set of 3",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Living Room"
+    },
+    {
+      "name": "Table Lamp",
+      "category": "Lighting",
+      "query": "modern ceramic table lamp",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Living Room"
+    },
+    {
+      "name": "Kitchen Island / Cart",
+      "category": "Furniture",
+      "query": "kitchen island cart with wheels",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Bar Stools (set of 2)",
+      "category": "Seating",
+      "query": "modern bar stools set of 2",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Cookware Set",
+      "category": "Cookware",
+      "query": "stainless steel cookware set",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Toaster",
+      "category": "Appliance",
+      "query": "2 slice stainless steel toaster",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Coffee Machine",
+      "category": "Appliance",
+      "query": "espresso coffee machine",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Dining Table (4-seat)",
+      "category": "Tables",
+      "query": "modern 4 person dining table",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Dining Chairs (set of 4)",
+      "category": "Seating",
+      "query": "modern dining chairs set of 4",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Pendant Light",
+      "category": "Lighting",
+      "query": "kitchen island pendant light",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Cutting Boards + Utensils",
+      "category": "Cookware",
+      "query": "wooden cutting board set utensils",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Kitchen"
+    },
+    {
+      "name": "Queen Bed Frame + Mattress",
+      "category": "Bed",
+      "query": "queen bed frame with mattress",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Duvet + Pillow Set",
+      "category": "Bedding",
+      "query": "queen duvet cover set 4 pieces",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Nightstand",
+      "category": "Storage",
+      "query": "modern bedside table nightstand",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Bedside Lamp",
+      "category": "Lighting",
+      "query": "modern bedside table lamp",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Wardrobe / Dresser",
+      "category": "Storage",
+      "query": "modern dresser chest of drawers",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Bedroom Rug",
+      "category": "Textiles",
+      "query": "soft bedroom rug",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Blackout Curtains",
+      "category": "Textiles",
+      "query": "blackout curtains panel set",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Wall Art",
+      "category": "Decor",
+      "query": "bedroom wall art print",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 1"
+    },
+    {
+      "name": "Queen Bed Frame + Mattress",
+      "category": "Bed",
+      "query": "queen bed frame with mattress",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Duvet + Pillow Set",
+      "category": "Bedding",
+      "query": "queen duvet cover set 4 pieces",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Nightstand",
+      "category": "Storage",
+      "query": "modern bedside table nightstand",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Bedside Lamp",
+      "category": "Lighting",
+      "query": "modern bedside table lamp",
+      "platform": "amazon",
+      "qty": 2,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Wardrobe / Dresser",
+      "category": "Storage",
+      "query": "modern dresser chest of drawers",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Bedroom Rug",
+      "category": "Textiles",
+      "query": "soft bedroom rug",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Blackout Curtains",
+      "category": "Textiles",
+      "query": "blackout curtains panel set",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Wall Art",
+      "category": "Decor",
+      "query": "bedroom wall art print",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bedroom 2"
+    },
+    {
+      "name": "Bathroom Vanity + Sink",
+      "category": "Vanity",
+      "query": "modern bathroom vanity with sink",
+      "platform": "homedepot",
+      "qty": 1,
+      "room": "Bath"
+    },
+    {
+      "name": "Shower Head",
+      "category": "Plumbing",
+      "query": "rainfall shower head",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bath"
+    },
+    {
+      "name": "Towel Set",
+      "category": "Textiles",
+      "query": "bath towel set 6 pieces",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bath"
+    },
+    {
+      "name": "Bathroom Mirror with Light",
+      "category": "Lighting",
+      "query": "backlit bathroom mirror",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bath"
+    },
+    {
+      "name": "Bath Mat",
+      "category": "Textiles",
+      "query": "non slip bath mat",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bath"
+    },
+    {
+      "name": "Towel Rack + Accessories",
+      "category": "Accessories",
+      "query": "bathroom towel rack set",
+      "platform": "amazon",
+      "qty": 1,
+      "room": "Bath"
+    }
+  ]
+}
