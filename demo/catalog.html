@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>clean, warm modern Interior — demo</title>
+<style>
+:root {
+  --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#f4f5f7;
+  --muted:#9aa3b2; --line:#2a2f3a; --accent:#e8b06b; --accent2:#7fb4d8;
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.55; }
+a { color:var(--accent2); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.wrap { max-width:1200px; margin:0 auto; padding:0 20px; }
+.hero { background:linear-gradient(135deg,#141821,#1b2230 60%,#20293a); padding:64px 0 48px; border-bottom:1px solid var(--line); }
+.hero h1 { font-size:40px; margin:0 0 8px; font-weight:700; letter-spacing:-.5px; }
+.hero .sub { color:var(--muted); font-size:18px; max-width:720px; }
+.meta { display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
+.meta .pill { background:var(--panel); border:1px solid var(--line); padding:10px 16px; border-radius:12px; }
+.meta .pill b { display:block; font-size:22px; }
+.meta .pill span { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+.swatches { display:flex; gap:8px; margin-top:22px; }
+.swatch { width:34px; height:34px; border-radius:8px; border:1px solid rgba(255,255,255,.15); }
+.design { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:26px; margin:34px 0; }
+.design h3 { margin:0 0 6px; font-size:15px; text-transform:uppercase; letter-spacing:1px; color:var(--accent); }
+.design p { margin:6px 0; color:var(--muted); }
+.design .row { display:grid; grid-template-columns:120px 1fr; gap:10px; margin:10px 0; }
+.design .row b { color:var(--ink); }
+nav.toc { position:sticky; top:0; z-index:5; background:rgba(15,17,21,.9); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line); padding:12px 0; }
+nav.toc .wrap { display:flex; gap:10px; flex-wrap:wrap; }
+nav.toc a { padding:6px 12px; border:1px solid var(--line); border-radius:20px; color:var(--muted); font-size:14px; }
+nav.toc a:hover { color:var(--ink); border-color:var(--accent); text-decoration:none; }
+section.room { padding:44px 0; border-bottom:1px solid var(--line); }
+.room-head h2 { font-size:30px; margin:0 0 6px; }
+.room-head .area { font-size:16px; color:var(--accent); font-weight:500; margin-left:8px; }
+.concept { color:var(--muted); max-width:820px; margin:0 0 20px; }
+.room-img { border-radius:16px; overflow:hidden; margin-bottom:24px; border:1px solid var(--line); }
+.room-img img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
+.noimg { height:200px; display:flex; align-items:center; justify-content:center; color:var(--muted); background:var(--panel); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  display:flex; flex-direction:column; transition:transform .15s, border-color .15s; }
+.card:hover { transform:translateY(-3px); border-color:#3a4150; }
+.card-img { position:relative; background:#0c0e12; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; }
+.badge { position:absolute; top:10px; left:10px; color:#fff; font-size:11px; font-weight:700;
+  padding:4px 8px; border-radius:6px; letter-spacing:.3px; }
+.discount { position:absolute; top:10px; right:10px; background:#e05252; color:#fff; font-size:11px;
+  font-weight:700; padding:4px 8px; border-radius:6px; }
+.card-body { padding:14px; display:flex; flex-direction:column; gap:6px; flex:1; }
+.card-cat { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; display:flex; justify-content:space-between; }
+.rating { color:var(--accent); letter-spacing:1px; }
+.rating small { color:var(--muted); letter-spacing:0; }
+.card-name { font-size:14px; font-weight:600; min-height:38px; }
+.price-row { display:flex; align-items:baseline; gap:8px; margin-top:2px; }
+.price { font-size:20px; font-weight:700; }
+.listprice { color:var(--muted); text-decoration:line-through; font-size:13px; }
+.qty { color:var(--muted); font-size:13px; }
+.subtotal { font-size:12px; color:var(--accent2); }
+.alt { font-size:12px; color:var(--muted); margin-top:2px; }
+.buy { margin-top:auto; display:block; text-align:center; background:var(--accent); color:#1a1206;
+  font-weight:700; padding:10px; border-radius:10px; }
+.buy:hover { text-decoration:none; filter:brightness(1.05); }
+.empty { color:var(--muted); }
+.budget { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:26px; margin:40px 0; }
+.budget h2 { margin:0 0 16px; font-size:24px; }
+table { width:100%; border-collapse:collapse; }
+th,td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); }
+th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+td.num, th.num { text-align:right; }
+tr.total td { font-weight:700; font-size:18px; border-top:2px solid var(--accent); border-bottom:none; }
+.chips { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+.chip { border:1px solid; border-radius:20px; padding:6px 14px; font-size:13px; }
+footer { padding:40px 0; color:var(--muted); font-size:13px; text-align:center; }
+.disclaimer { font-size:12px; color:var(--muted); margin-top:10px; }
+@media (max-width:600px) { .hero h1{font-size:30px;} .grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap">
+    <h1>clean, warm modern</h1>
+    <div class="sub">A complete interior design and shopping plan for your space — every product sourced
+      from real stores with live prices and buy links. warm whites, soft greys, walnut wood, brushed brass accents</div>
+    <div class="meta">
+      <div class="pill"><b>95</b><span>Area (m²)</span></div>
+      <div class="pill"><b>2</b><span>Bedrooms</span></div>
+      <div class="pill"><b>1</b><span>Bathrooms</span></div>
+      <div class="pill"><b>43</b><span>Products</span></div>
+      <div class="pill"><b>$7,030.68</b><span>Est. Total</span></div>
+    </div>
+    <div class="swatches"><span class="swatch" style="background:#f2efe9" title="warm white"></span><span class="swatch" style="background:#b9bdc4" title="soft grey"></span><span class="swatch" style="background:#6b4a2f" title="walnut"></span><span class="swatch" style="background:#c9a227" title="brass"></span><span class="swatch" style="background:#2b2f36" title="charcoal"></span></div>
+  </div>
+</div>
+<nav class="toc"><div class="wrap">
+  <a href="#budget">Budget</a>
+  <a href="#living">Living Room</a><a href="#kitchen">Kitchen</a><a href="#bedroom">Bedroom 1</a><a href="#bedroom">Bedroom 2</a><a href="#bath">Bath</a><a href="#balcony">Balcony</a>
+</div></nav>
+<div class="wrap">
+  <div class="design">
+    <h3>Design Concept</h3>
+    <div class="row"><b>Style</b><span>modern — clean, warm modern</span></div>
+    <div class="row"><b>Palette</b><span>warm whites, soft greys, walnut wood, brushed brass accents</span></div>
+    <div class="row"><b>Materials</b><span>oak flooring, matte lacquer, boucle and linen, glass</span></div>
+    <div class="row"><b>Lighting</b><span>layered warm-white LED, recessed spots + statement pendants</span></div>
+    <div class="row"><b>Features</b><span>Balcony, Large windows in Living Room and Bedroom 1, Separate enclosed kitchen</span></div>
+  </div>
+  
+        <section class="room" id="living">
+          <div class="room-head">
+            <h2>Living Room <span class="area">32 m²</span></h2>
+            <p class="concept">The living room is the social heart of the home. A low-profile sofa anchors the space with a layered rug beneath, balanced by an accent armchair and a warm wood coffee table. Lighting is layered — recessed spots for general light, a floor lamp for reading, and a statement pendant over the seating. Soft textiles and one or two art pieces keep it relaxed.</p>
+          </div>
+          <div class="room-img"><img src="renders/living.jpg" alt="Living Room render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-00.jpg" alt="83” Modern Cloud Couch, 3 Seater Cozy Chenille Sofa with Solid Wood Legs, 28” Extra Deep Seats, Upholstered Round Armrest Couches with 3 Pillows for Living Room, Apartment (White)" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Seating <span class="rating">★★★★★ <small>5</small></span></div>
+        <div class="card-name" title="83” Modern Cloud Couch, 3 Seater Cozy Chenille Sofa with Solid Wood Legs, 28” Extra Deep Seats, Upholstered Round Armrest Couches with 3 Pillows for Living Room, Apartment (White)">83” Modern Cloud Couch, 3 Seater Cozy Chenille Sofa with Solid Wood Legs, 28” Extra Deep Seats, Upholstered Round Armrest Couches with 3 Pillows for Living Room, Apartment (White)</div>
+        <div class="price-row">
+          <span class="price">$575.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$575.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $988.00 <a href="https://www.target.com/p/luck-live-mid-century-modern-sofas-111-81in-cotton-sofa-suitable-for-living-room-with-3-pillows-gray-removable-slipcover/-/A-1010832529" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H5CKDWR1" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-01.jpg" alt="MAXYOYO Modern Accent Chair, Comfy Living Room Chair with Metal Frame" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Seating <span class="rating">★★★★☆ <small>4.3</small></span></div>
+        <div class="card-name" title="MAXYOYO Modern Accent Chair, Comfy Living Room Chair with Metal Frame">MAXYOYO Modern Accent Chair, Comfy Living Room Chair with Metal Frame</div>
+        <div class="price-row">
+          <span class="price">$109.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$109.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $169.99 <a href="https://www.target.com/p/colamy-barrel-living-room-accent-chair-upholstered-modern-side-armchair-for-home-bedroom-green/-/A-1001973504" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0F7LRGGRY" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-02.jpg" alt="Coffee Table for Living Room, Mid Century Modern Round Coffee Table" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-12%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Tables <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="Coffee Table for Living Room, Mid Century Modern Round Coffee Table">Coffee Table for Living Room, Mid Century Modern Round Coffee Table</div>
+        <div class="price-row">
+          <span class="price">$122.99</span>
+          <span class="listprice">$139.99</span>
+          
+        </div>
+        <div class="subtotal">$122.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $329.99 <a href="https://www.target.com/p/modern-fluted-lift-top-coffee-table-with-hidden-storage-drawers-walnut-gaoyangjiaju/-/A-1010487362" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0G58HGG8K" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-03.jpg" alt="86.6&quot; Mid-Century Modern TV Stand, Media Console with 6-Drawer" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Storage <span class="rating">★★★★★ <small>5</small></span></div>
+        <div class="card-name" title="86.6&quot; Mid-Century Modern TV Stand, Media Console with 6-Drawer">86.6&quot; Mid-Century Modern TV Stand, Media Console with 6-Drawer</div>
+        <div class="price-row">
+          <span class="price">$606.64</span>
+          
+          
+        </div>
+        <div class="subtotal">$606.64</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $459.99 <a href="https://www.target.com/p/oslo-tv-stand-for-tvs-up-to-100-walnut-brown-gaoyangjiaju-mid-century-modern-slatted-media-console-with-storage/-/A-1012202749" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0HB3XKCRY" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-04.jpg" alt="Nuloom Davi Faded SplashGuard Machine Washable Area Rug, 6&#x27; x 9&#x27;, Stone" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★☆ <small>4.45</small></span></div>
+        <div class="card-name" title="Nuloom Davi Faded SplashGuard Machine Washable Area Rug, 6&#x27; x 9&#x27;, Stone">Nuloom Davi Faded SplashGuard Machine Washable Area Rug, 6&#x27; x 9&#x27;, Stone</div>
+        <div class="price-row">
+          <span class="price">$153.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$153.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=large+living+room+area+rug" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/nuloi-faded-spill-proof-machine-washable-area-rug-6-x-9-in-taupe/-/A-88765851" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-05.jpg" alt="ROTTOGOON Floor Lamp for Living Room with 3 Color Temperatures LED Bulb, Standing Lamp Tall Industrial Floor Lamp Reading for Bedroom, Office (9W LED Bulb, Beige Lampshade Included) -Black" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting <span class="rating">★★★★☆ <small>4.5</small></span></div>
+        <div class="card-name" title="ROTTOGOON Floor Lamp for Living Room with 3 Color Temperatures LED Bulb, Standing Lamp Tall Industrial Floor Lamp Reading for Bedroom, Office (9W LED Bulb, Beige Lampshade Included) -Black">ROTTOGOON Floor Lamp for Living Room with 3 Color Temperatures LED Bulb, Standing Lamp Tall Industrial Floor Lamp Reading for Bedroom, Office (9W LED Bulb, Beige Lampshade Included) -Black</div>
+        <div class="price-row">
+          <span class="price">$31.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$31.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $69.99 <a href="https://www.target.com/p/adesso-evan-floor-lamp-antique-brass/-/A-92089565" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B086ZLGLV3" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-06.jpg" alt="puthiac Wooden Floral Vase Wall Art Set of 3, Rustic Boho Farmhouse Decor" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Decor <span class="rating">★★★★☆ <small>4.5</small></span></div>
+        <div class="card-name" title="puthiac Wooden Floral Vase Wall Art Set of 3, Rustic Boho Farmhouse Decor">puthiac Wooden Floral Vase Wall Art Set of 3, Rustic Boho Farmhouse Decor</div>
+        <div class="price-row">
+          <span class="price">$15.98</span>
+          
+          
+        </div>
+        <div class="subtotal">$15.98</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $69.29 <a href="https://www.target.com/p/stupell-industries-abstract-blurred-pine-tree-forest-landscape-gallery-wrapped-canvas-wall-art-24-x-30/-/A-86942135" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0FSZ2SM2T" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/liv-07.jpg" alt="White Ceramic Table Lamp, Geometric Textured Small Bedside Lamp with Linen Shade, Mid Century Modern Nightstand Lamp for Bedroom Living Room Reading Room, H 12&quot; x W 6.7&quot;, 7W LED Bulb Included" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting <span class="rating">★★★★★ <small>4.6</small></span></div>
+        <div class="card-name" title="White Ceramic Table Lamp, Geometric Textured Small Bedside Lamp with Linen Shade, Mid Century Modern Nightstand Lamp for Bedroom Living Room Reading Room, H 12&quot; x W 6.7&quot;, 7W LED Bulb Included">White Ceramic Table Lamp, Geometric Textured Small Bedside Lamp with Linen Shade, Mid Century Modern Nightstand Lamp for Bedroom Living Room Reading Room, H 12&quot; x W 6.7&quot;, 7W LED Bulb Included</div>
+        <div class="price-row">
+          <span class="price">$29.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$59.98</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $89.99 <a href="https://www.target.com/p/23-beige-ceramic-urn-table-lamp-nourison/-/A-90946819" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0BYPKPWRP" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div></div>
+        </section>
+        <section class="room" id="kitchen">
+          <div class="room-head">
+            <h2>Kitchen <span class="area">16 m²</span></h2>
+            <p class="concept">The kitchen balances function and warmth. A clean work surface runs along the wall with an island or cart for casual dining, topped by pendant lights. Quality cookware and a good coffee machine make it a place to gather. Natural wood and matte finishes keep it from feeling cold.</p>
+          </div>
+          <div class="room-img"><img src="renders/kitchen.jpg" alt="Kitchen render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-08.jpg" alt="Kitchen Island with Storage – Rolling Kitchen Cart on Wheels" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-5%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Furniture <span class="rating">★★★★★ <small>5</small></span></div>
+        <div class="card-name" title="Kitchen Island with Storage – Rolling Kitchen Cart on Wheels">Kitchen Island with Storage – Rolling Kitchen Cart on Wheels</div>
+        <div class="price-row">
+          <span class="price">$95.00</span>
+          <span class="listprice">$99.99</span>
+          
+        </div>
+        <div class="subtotal">$95.00</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $169.99 <a href="https://www.target.com/p/seville-classics-stainless-steel-top-nsf-certified-utility-worktable-cart/-/A-1003026157" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H8796QFN" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-09.jpg" alt="Best Choice Products Set of 2 Counter-Height Bar Stools, Armless W/Upholstered Seat Cushion &amp; Backrest - Walnut/Cream" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Seating <span class="rating">★★★★☆ <small>4.04</small></span></div>
+        <div class="card-name" title="Best Choice Products Set of 2 Counter-Height Bar Stools, Armless W/Upholstered Seat Cushion &amp; Backrest - Walnut/Cream">Best Choice Products Set of 2 Counter-Height Bar Stools, Armless W/Upholstered Seat Cushion &amp; Backrest - Walnut/Cream</div>
+        <div class="price-row">
+          <span class="price">$159.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$159.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bar+stools+set+of+2" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/best-choice-products-2-piece-mid-century-modern-wood-and-upholstered-counter-height-bar-stool-set-walnut-cream/-/A-1001150698" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-10.jpg" alt="Made In Cookware - 10 Piece Stainless Steel Pot and Pan Set - 5 Ply Clad - Includes Stainless Steel Frying Pans, Saucepans, Saucier and Stock Pot W/Lid - Professional Cookware - Crafted in Italy" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Cookware <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="Made In Cookware - 10 Piece Stainless Steel Pot and Pan Set - 5 Ply Clad - Includes Stainless Steel Frying Pans, Saucepans, Saucier and Stock Pot W/Lid - Professional Cookware - Crafted in Italy">Made In Cookware - 10 Piece Stainless Steel Pot and Pan Set - 5 Ply Clad - Includes Stainless Steel Frying Pans, Saucepans, Saucier and Stock Pot W/Lid - Professional Cookware - Crafted in Italy</div>
+        <div class="price-row">
+          <span class="price">$784.77</span>
+          
+          
+        </div>
+        <div class="subtotal">$784.77</div>
+        <div class="alt">Also on <b style="color:#0071CE">Walmart</b>: $179.00 <a href="https://www.walmart.com/ip/Cuisinart-Chef-s-Classic-Stainless-Cookware-11-Piece-Set-77-11G/24188062?classType=REGULAR" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B09HR6MV21" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-11.jpg" alt="BLACK+DECKER 2-Slice Toaster with Extra-Wide Slots" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Appliance <span class="rating">★★★★☆ <small>4.4</small></span></div>
+        <div class="card-name" title="BLACK+DECKER 2-Slice Toaster with Extra-Wide Slots">BLACK+DECKER 2-Slice Toaster with Extra-Wide Slots</div>
+        <div class="price-row">
+          <span class="price">$29.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$29.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: $14.99 <a href="https://www.amazon.com/dp/B0CB1SSWRM" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B002CVTT4S" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-12.jpg" alt="Aromaster 1400W Espresso Machine with Milk Frother, Stainless Steel" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-60%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Appliance <span class="rating">★★★★★ <small>4.9</small></span></div>
+        <div class="card-name" title="Aromaster 1400W Espresso Machine with Milk Frother, Stainless Steel">Aromaster 1400W Espresso Machine with Milk Frother, Stainless Steel</div>
+        <div class="price-row">
+          <span class="price">$109.99</span>
+          <span class="listprice">$274.99</span>
+          
+        </div>
+        <div class="subtotal">$109.99</div>
+        <div class="alt">Also on <b style="color:#0071CE">Walmart</b>: $94.97 <a href="https://www.walmart.com/ip/Nespresso-Vertuo-Pop-by-De-Longhi-Coffee-and-Espresso-Maker-with-Coffee-Tasting-Set-Black/2258193826?classType=VARIANT" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H4V27QJJ" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-13.jpg" alt="43.3&quot;-59&quot; Extendable Round Oval Dining Table for 4-8 with Storage Shelf" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Tables <span class="rating">★★★★☆ <small>4.4</small></span></div>
+        <div class="card-name" title="43.3&quot;-59&quot; Extendable Round Oval Dining Table for 4-8 with Storage Shelf">43.3&quot;-59&quot; Extendable Round Oval Dining Table for 4-8 with Storage Shelf</div>
+        <div class="price-row">
+          <span class="price">$199.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$199.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $369.98 <a href="https://www.target.com/p/extendable-round-to-oval-dining-table-set-with-fluted-storage-base-and-curved-back-chairs-upholstered-modern-dining-room-kitchen-set/-/A-1012731449" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0DWMNGBKD" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-14.jpg" alt="Mid-Century Modern Dining Chairs Set of 4/6, Heart-Shaped Back Upholstered Kitchen Chairs with Thick Cushion &amp; Wooden Legs (Multiple Colors)" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Seating <span class="rating">★★★☆☆ <small>3.0</small></span></div>
+        <div class="card-name" title="Mid-Century Modern Dining Chairs Set of 4/6, Heart-Shaped Back Upholstered Kitchen Chairs with Thick Cushion &amp; Wooden Legs (Multiple Colors)">Mid-Century Modern Dining Chairs Set of 4/6, Heart-Shaped Back Upholstered Kitchen Chairs with Thick Cushion &amp; Wooden Legs (Multiple Colors)</div>
+        <div class="price-row">
+          <span class="price">$420.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$420.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+dining+chairs+set+of+4" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/mid-century-modern-dining-chairs-set-of-4-6-heart-shaped-back-upholstered-kitchen-chairs-with-thick-cushion-wooden-legs-multiple-colors/-/A-1012731262" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-15.jpg" alt="Govee Pendant Lights for Kitchen Island, Three-Layer RGBIC Smart Lighting" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="Govee Pendant Lights for Kitchen Island, Three-Layer RGBIC Smart Lighting">Govee Pendant Lights for Kitchen Island, Three-Layer RGBIC Smart Lighting</div>
+        <div class="price-row">
+          <span class="price">$149.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$299.98</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $878.00 <a href="https://www.target.com/p/capital-lighting-abbie-6-light-island-pendant-light-in-aged-brass/-/A-1006005130" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0FHQ3JQ9C" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/kit-16.jpg" alt="KLYRO Wooden Spoons for Cooking, Nonstick Kitchen Utensils Set with 4 Piece Measuring Spoons, Comfort Grip Wooden Spatula Set, 9 Piece Teak Wooden Cooking Utensils with Holder and Spoon Rest" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Cookware <span class="rating">★★★★★ <small>4.6</small></span></div>
+        <div class="card-name" title="KLYRO Wooden Spoons for Cooking, Nonstick Kitchen Utensils Set with 4 Piece Measuring Spoons, Comfort Grip Wooden Spatula Set, 9 Piece Teak Wooden Cooking Utensils with Holder and Spoon Rest">KLYRO Wooden Spoons for Cooking, Nonstick Kitchen Utensils Set with 4 Piece Measuring Spoons, Comfort Grip Wooden Spatula Set, 9 Piece Teak Wooden Cooking Utensils with Holder and Spoon Rest</div>
+        <div class="price-row">
+          <span class="price">$26.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$26.99</div>
+        <div class="alt">Also on <b style="color:#0071CE">Walmart</b>: $23.99 <a href="https://www.walmart.com/ip/Astercook-Bamboo-Cutting-Board/17247971174?classType=VARIANT&amp;athbdg=L1103" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0D3X3NYRX" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div></div>
+        </section>
+        <section class="room" id="bedroom">
+          <div class="room-head">
+            <h2>Bedroom 1 <span class="area">24 m²</span></h2>
+            <p class="concept">Each bedroom is a calm retreat. A quality bed with layered bedding sits on a soft rug, flanked by matching nightstands and warm bedside lamps. A dresser provides storage, blackout curtains protect sleep, and a single art piece adds personality without clutter.</p>
+          </div>
+          <div class="room-img"><img src="renders/bedroom.jpg" alt="Bedroom 1 render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-17.jpg" alt="Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bed <span class="rating">★★★★★ <small>5.0</small></span></div>
+        <div class="card-name" title="Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation">Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation</div>
+        <div class="price-row">
+          <span class="price">$158.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$158.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=queen+bed+frame+with+mattress" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/gray-queen-size-upholstered-platform-bed-frame-soft-padded-headboard-sturdy-reinforced-wood-slats-noise-free-mattress-foundation/-/A-1011748535" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-18.jpg" alt="Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bedding </div>
+        <div class="card-name" title="Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;">Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;</div>
+        <div class="price-row">
+          <span class="price">$70.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$70.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=queen+duvet+cover+set+4+pieces" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/full-queen-woven-floral-tapestry-duvet-cover-and-shams-set-threshold-8482/-/A-95042245" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-19.jpg" alt="Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Storage </div>
+        <div class="card-name" title="Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports">Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports</div>
+        <div class="price-row">
+          <span class="price">$179.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$359.98</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bedside+table+nightstand" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/signature-design-by-ashley-frandern-two-drawer-nightstand-rustic-warm-gray-finish-with-usb-charging-ports/-/A-1005636219" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-20.jpg" alt="Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting <span class="rating">★★★★★ <small>4.71</small></span></div>
+        <div class="card-name" title="Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand">Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand</div>
+        <div class="price-row">
+          <span class="price">$129.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$259.98</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bedside+table+lamp" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/360-lighting-rocco-modern-mid-century-table-lamp-30-tall-blue-teal-glaze-ceramic-linen-drum-shade-for-bedroom-living-room-bedside-nightstand-office/-/A-79899245" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-21.jpg" alt="Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Storage <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak">Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak</div>
+        <div class="price-row">
+          <span class="price">$199.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$199.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $299.99 <a href="https://www.target.com/p/signature-design-by-ashley-socalle-5-drawer-dresser-honey-brown/-/A-92168781" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H4Y7RMMF" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-22.jpg" alt="MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★★ <small>4.8</small></span></div>
+        <div class="card-name" title="MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom">MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom</div>
+        <div class="price-row">
+          <span class="price">$49.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$49.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $119.99 <a href="https://www.target.com/p/nuloom-moroccan-blythe-area-rug-5-x-7-5-pink/-/A-89956965" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H3KPGQDW" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-23.jpg" alt="ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-10%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★★ <small>4.6</small></span></div>
+        <div class="card-name" title="ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long">ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long</div>
+        <div class="price-row">
+          <span class="price">$10.79</span>
+          <span class="listprice">$11.99</span>
+          
+        </div>
+        <div class="subtotal">$10.79</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $39.99 <a href="https://www.target.com/p/joydeco-37-x-84-light-gray-thermal-insulataed-faux-linen-textured-100-blackout-curtains-for-bedroom-rod-pocket-back-tabs-set-of-2/-/A-1011072889" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0881QG5WK" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-24.jpg" alt="Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Decor <span class="rating">★★★★★ <small>4.9</small></span></div>
+        <div class="card-name" title="Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch">Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch</div>
+        <div class="price-row">
+          <span class="price">$37.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$37.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $89.99 <a href="https://www.target.com/p/kate-and-laurel-sylvie-wild-foliage-li-neutral-linen-framed-canvas-by-nikita-jariwala-23x33-sylvie-natural/-/A-1010025817" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0G6YV5GSN" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div></div>
+        </section>
+        <section class="room" id="bedroom">
+          <div class="room-head">
+            <h2>Bedroom 2 <span class="area">14 m²</span></h2>
+            <p class="concept">Each bedroom is a calm retreat. A quality bed with layered bedding sits on a soft rug, flanked by matching nightstands and warm bedside lamps. A dresser provides storage, blackout curtains protect sleep, and a single art piece adds personality without clutter.</p>
+          </div>
+          <div class="room-img"><img src="renders/bedroom.jpg" alt="Bedroom 2 render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-25.jpg" alt="Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bed <span class="rating">★★★★★ <small>5.0</small></span></div>
+        <div class="card-name" title="Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation">Gray Queen Size Upholstered Platform Bed Frame, Soft Padded Headboard, Sturdy Reinforced Wood Slats, Noise Free Mattress Foundation</div>
+        <div class="price-row">
+          <span class="price">$158.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$158.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=queen+bed+frame+with+mattress" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/gray-queen-size-upholstered-platform-bed-frame-soft-padded-headboard-sturdy-reinforced-wood-slats-noise-free-mattress-foundation/-/A-1011748535" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-26.jpg" alt="Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bedding </div>
+        <div class="card-name" title="Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;">Full/Queen Woven Floral Tapestry Duvet Cover and Shams Set - Threshold&amp;#8482;</div>
+        <div class="price-row">
+          <span class="price">$70.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$70.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=queen+duvet+cover+set+4+pieces" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/full-queen-woven-floral-tapestry-duvet-cover-and-shams-set-threshold-8482/-/A-95042245" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-27.jpg" alt="Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Storage </div>
+        <div class="card-name" title="Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports">Signature Design by Ashley Frandern Two Drawer Nightstand - Rustic Warm Gray Finish with USB Charging Ports</div>
+        <div class="price-row">
+          <span class="price">$179.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$359.98</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bedside+table+nightstand" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/signature-design-by-ashley-frandern-two-drawer-nightstand-rustic-warm-gray-finish-with-usb-charging-ports/-/A-1005636219" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-28.jpg" alt="Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting <span class="rating">★★★★★ <small>4.71</small></span></div>
+        <div class="card-name" title="Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand">Possini Euro Design Rocco Modern Mid Century Table Lamp 30&quot; Tall Blue Teal Glaze Ceramic Linen Drum Shade for Bedroom Living Room Bedside Nightstand</div>
+        <div class="price-row">
+          <span class="price">$129.99</span>
+          
+          <span class="qty">× 2</span>
+        </div>
+        <div class="subtotal">$259.98</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bedside+table+lamp" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/360-lighting-rocco-modern-mid-century-table-lamp-30-tall-blue-teal-glaze-ceramic-linen-drum-shade-for-bedroom-living-room-bedside-nightstand-office/-/A-79899245" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-29.jpg" alt="Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Storage <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak">Modern 6 Drawers Dresser for Bedroom, 47&quot; Wide Dresser,Natural Oak</div>
+        <div class="price-row">
+          <span class="price">$199.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$199.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $299.99 <a href="https://www.target.com/p/signature-design-by-ashley-socalle-5-drawer-dresser-honey-brown/-/A-92168781" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H4Y7RMMF" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-30.jpg" alt="MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★★ <small>4.8</small></span></div>
+        <div class="card-name" title="MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom">MXSANYOO 8x10 Grey Fluffy Shag Area Rugs for Living Room Bedroom</div>
+        <div class="price-row">
+          <span class="price">$49.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$49.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $119.99 <a href="https://www.target.com/p/nuloom-moroccan-blythe-area-rug-5-x-7-5-pink/-/A-89956965" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0H3KPGQDW" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-31.jpg" alt="ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-10%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★★ <small>4.6</small></span></div>
+        <div class="card-name" title="ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long">ChrisDowa Blackout Curtains for Bedroom and Living Room 63 Inches Long</div>
+        <div class="price-row">
+          <span class="price">$10.79</span>
+          <span class="listprice">$11.99</span>
+          
+        </div>
+        <div class="subtotal">$10.79</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $39.99 <a href="https://www.target.com/p/joydeco-37-x-84-light-gray-thermal-insulataed-faux-linen-textured-100-blackout-curtains-for-bedroom-rod-pocket-back-tabs-set-of-2/-/A-1011072889" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0881QG5WK" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bed-32.jpg" alt="Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Decor <span class="rating">★★★★★ <small>4.9</small></span></div>
+        <div class="card-name" title="Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch">Framed Colorful Floral Wall Art Set of 3, Abstract Scandinavian Flower Canvas Wall Decor Paintings, Mid Century Modern Botanical Artwork Pictures Prints for Living Room Bedroom Dining Room 12x16 Inch</div>
+        <div class="price-row">
+          <span class="price">$37.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$37.99</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $89.99 <a href="https://www.target.com/p/kate-and-laurel-sylvie-wild-foliage-li-neutral-linen-framed-canvas-by-nikita-jariwala-23x33-sylvie-natural/-/A-1010025817" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B0G6YV5GSN" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div></div>
+        </section>
+        <section class="room" id="bath">
+          <div class="room-head">
+            <h2>Bath <span class="area">6 m²</span></h2>
+            <p class="concept">The bathroom reads like a small spa. A clean vanity with a lit mirror, a rainfall shower, and soft towels create a calm, functional space. Neutral tones and good lighting make the room feel larger and brighter.</p>
+          </div>
+          <div class="room-img"><img src="renders/bath.jpg" alt="Bath render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-33.jpg" alt="JVNOXK Modern Minimalist Vanity Set, 6-Drawer Vanity, Bedroom Vanity, Stylish Storage Vanity, 47.24-86.6 inches，Does not Include a Mirror or a Stool" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Vanity </div>
+        <div class="card-name" title="JVNOXK Modern Minimalist Vanity Set, 6-Drawer Vanity, Bedroom Vanity, Stylish Storage Vanity, 47.24-86.6 inches，Does not Include a Mirror or a Stool">JVNOXK Modern Minimalist Vanity Set, 6-Drawer Vanity, Bedroom Vanity, Stylish Storage Vanity, 47.24-86.6 inches，Does not Include a Mirror or a Stool</div>
+        <div class="price-row">
+          <span class="price">$358.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$358.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=modern+bathroom+vanity+with+sink" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/jvnoxk-modern-minimalist-vanity-set-6-drawer-vanity-bedroom-vanity-stylish-storage-vanity-47-24-86-6-inches-does-not-include-a-mirror-or-a-stool/-/A-1013034967" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-34.jpg" alt="SparkPod Rain Shower Head, 6 Inch Round, Luxury Polished Chrome Finish" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-11%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Plumbing <span class="rating">★★★★★ <small>4.7</small></span></div>
+        <div class="card-name" title="SparkPod Rain Shower Head, 6 Inch Round, Luxury Polished Chrome Finish">SparkPod Rain Shower Head, 6 Inch Round, Luxury Polished Chrome Finish</div>
+        <div class="price-row">
+          <span class="price">$32.99</span>
+          <span class="listprice">$36.99</span>
+          
+        </div>
+        <div class="subtotal">$32.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=rainfall+shower+head" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B074PR4FRT" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-35.jpg" alt="Amazon Basics 6-Piece Oversized Highly Absorbent Fade-Resistant Towel Set, 100% Cotton Towels for Bathroom, Soft, 2 Bath Towels, 2 Hand Towels, 2 Washcloths, White" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#FF9900">Amazon</span><span class="discount">-19%</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★☆ <small>4.4</small></span></div>
+        <div class="card-name" title="Amazon Basics 6-Piece Oversized Highly Absorbent Fade-Resistant Towel Set, 100% Cotton Towels for Bathroom, Soft, 2 Bath Towels, 2 Hand Towels, 2 Washcloths, White">Amazon Basics 6-Piece Oversized Highly Absorbent Fade-Resistant Towel Set, 100% Cotton Towels for Bathroom, Soft, 2 Bath Towels, 2 Hand Towels, 2 Washcloths, White</div>
+        <div class="price-row">
+          <span class="price">$15.97</span>
+          <span class="listprice">$19.80</span>
+          
+        </div>
+        <div class="subtotal">$15.97</div>
+        <div class="alt">Also on <b style="color:#CC0000">Target</b>: $124.99 <a href="https://www.target.com/p/delilah-home-100-organic-cotton-towels-6-piece-set-2pcs-13x13-2pcs-16x30-2-pcs-30x54/-/A-93048167" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.amazon.com/dp/B00Q7JEEF0" target="_blank" rel="noopener">Buy on Amazon →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-36.jpg" alt="New England Stories 40&quot; x 32&quot; Anti-Fog LED Bathroom Mirror with Dual Front &amp; Backlit Lights" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lighting </div>
+        <div class="card-name" title="New England Stories 40&quot; x 32&quot; Anti-Fog LED Bathroom Mirror with Dual Front &amp; Backlit Lights">New England Stories 40&quot; x 32&quot; Anti-Fog LED Bathroom Mirror with Dual Front &amp; Backlit Lights</div>
+        <div class="price-row">
+          <span class="price">$139.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$139.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=backlit+bathroom+mirror" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/new-england-stories-40-x-32-anti-fog-led-bathroom-mirror-with-dual-front-backlit-lights/-/A-1008893165" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-37.jpg" alt="GORILLA GRIP Bath Rug Mat, Thick Soft Absorbent Chenille, Quick Dry Microfiber Bathroom Mats, Washable Floor Rugs with Rubber Backing, 30x20 Gray" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Textiles <span class="rating">★★★★★ <small>4.83</small></span></div>
+        <div class="card-name" title="GORILLA GRIP Bath Rug Mat, Thick Soft Absorbent Chenille, Quick Dry Microfiber Bathroom Mats, Washable Floor Rugs with Rubber Backing, 30x20 Gray">GORILLA GRIP Bath Rug Mat, Thick Soft Absorbent Chenille, Quick Dry Microfiber Bathroom Mats, Washable Floor Rugs with Rubber Backing, 30x20 Gray</div>
+        <div class="price-row">
+          <span class="price">$23.99</span>
+          
+          
+        </div>
+        <div class="subtotal">$23.99</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=non+slip+bath+mat" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/gorilla-grip-bath-rug-mat-thick-soft-absorbent-chenille-quick-dry-microfiber-bathroom-mats-washable-floor-rugs-with-rubber-backing-30x20-gray/-/A-1012913945" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bat-38.jpg" alt="Amerock Monument Champagne Bronze Closed Towel Ring" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Accessories <span class="rating">★★★★★ <small>4.92</small></span></div>
+        <div class="card-name" title="Amerock Monument Champagne Bronze Closed Towel Ring">Amerock Monument Champagne Bronze Closed Towel Ring</div>
+        <div class="price-row">
+          <span class="price">$29.15</span>
+          
+          
+        </div>
+        <div class="subtotal">$29.15</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=bathroom+towel+rack+set" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/amerock-monument-champagne-bronze-closed-towel-ring/-/A-91843886" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div></div>
+        </section>
+        <section class="room" id="balcony">
+          <div class="room-head">
+            <h2>Balcony <span class="area">4 m²</span></h2>
+            <p class="concept">The balcony extends the living space outdoors. A comfortable lounge chair, a small side table, and greenery turn it into a quiet spot for morning coffee. An outdoor rug defines the seating area.</p>
+          </div>
+          <div class="room-img"><img src="renders/balcony.jpg" alt="Balcony render" loading="lazy"></div>
+          <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bal-39.jpg" alt="Gymax 1PC Patio Chaise Lounge Chair Outdoor Reclining Chair w/ 6-Level Adjustable Backrest &amp; Metal Frame Black" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Outdoor </div>
+        <div class="card-name" title="Gymax 1PC Patio Chaise Lounge Chair Outdoor Reclining Chair w/ 6-Level Adjustable Backrest &amp; Metal Frame Black">Gymax 1PC Patio Chaise Lounge Chair Outdoor Reclining Chair w/ 6-Level Adjustable Backrest &amp; Metal Frame Black</div>
+        <div class="price-row">
+          <span class="price">$84.80</span>
+          
+          
+        </div>
+        <div class="subtotal">$84.80</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=outdoor+rattan+lounge+chair" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/gymax-1pc-patio-chaise-lounge-chair-outdoor-reclining-chair-w-6-level-adjustable-backrest-metal-frame-black/-/A-1010288819" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bal-40.jpg" alt="LeisureMod Wisp 18-Inch Modern Hourglass Side Table - Terrazzo or Matte Fiberstone Weather-Resistant Indoor/Outdoor Accent End Table for Patio &amp; Home" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Outdoor </div>
+        <div class="card-name" title="LeisureMod Wisp 18-Inch Modern Hourglass Side Table - Terrazzo or Matte Fiberstone Weather-Resistant Indoor/Outdoor Accent End Table for Patio &amp; Home">LeisureMod Wisp 18-Inch Modern Hourglass Side Table - Terrazzo or Matte Fiberstone Weather-Resistant Indoor/Outdoor Accent End Table for Patio &amp; Home</div>
+        <div class="price-row">
+          <span class="price">$149.10</span>
+          
+          
+        </div>
+        <div class="subtotal">$149.10</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=outdoor+side+table" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/leisuremod-16-wide-round-side-table-in-fiberstone-with-hourglass-pedestal-design-for-indoor-and-outdoor-use-wisp-collection-in-terrazzo-white/-/A-1000573464" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bal-41.jpg" alt="Live 6&amp;#34; Bi-Color Mum - Good Little Garden&amp;#8482;" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Decor <span class="rating">★★★★☆ <small>4.18</small></span></div>
+        <div class="card-name" title="Live 6&amp;#34; Bi-Color Mum - Good Little Garden&amp;#8482;">Live 6&amp;#34; Bi-Color Mum - Good Little Garden&amp;#8482;</div>
+        <div class="price-row">
+          <span class="price">$8.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$8.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=indoor+outdoor+potted+plants+set" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/live-6-34-potted-pelee-mum-plant-in-maroon-wrap-spritz-8482/-/A-89158508" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="img/bal-42.jpg" alt="Nourison Positano Modern Stripes Flatweave Indoor Outdoor Low Pile Area Rug Jute Ivory 6&#x27; x 9&#x27;" loading="lazy"
+             onerror="this.style.display='none'">
+        <span class="badge" style="background:#CC0000">Target</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Outdoor <span class="rating">★★★★☆ <small>4.25</small></span></div>
+        <div class="card-name" title="Nourison Positano Modern Stripes Flatweave Indoor Outdoor Low Pile Area Rug Jute Ivory 6&#x27; x 9&#x27;">Nourison Positano Modern Stripes Flatweave Indoor Outdoor Low Pile Area Rug Jute Ivory 6&#x27; x 9&#x27;</div>
+        <div class="price-row">
+          <span class="price">$91.00</span>
+          
+          
+        </div>
+        <div class="subtotal">$91.00</div>
+        <div class="alt">Also on <b style="color:#FF9900">Amazon</b>: — <a href="https://www.amazon.com/s?k=outdoor+area+rug" target="_blank" rel="noopener">view →</a></div>
+        <a class="buy" href="https://www.target.com/p/nourison-positano-modern-stripes-flatweave-indoor-outdoor-low-pile-area-rug-jute-ivory-6-x-9/-/A-89195060" target="_blank" rel="noopener">Buy on Target →</a>
+      </div>
+    </div></div>
+        </section>
+  <div class="budget" id="budget">
+    <h2>Budget &amp; Where to Buy</h2>
+    <table>
+      <thead><tr><th>Room</th><th>Items</th><th class="num">Subtotal</th></tr></thead>
+      <tbody><tr><td>Living Room</td><td>8</td><td class="num">$1,677.55</td></tr><tr><td>Kitchen</td><td>9</td><td class="num">$2,126.70</td></tr><tr><td>Bedroom 1</td><td>8</td><td class="num">$1,146.72</td></tr><tr><td>Bedroom 2</td><td>8</td><td class="num">$1,146.72</td></tr><tr><td>Bath</td><td>6</td><td class="num">$600.09</td></tr><tr><td>Balcony</td><td>4</td><td class="num">$332.90</td></tr><tr class="total"><td>Total</td><td>43</td><td class="num">$7,030.68</td></tr></tbody>
+    </table>
+    <div class="chips"><span class="chip" style="border-color:#FF9900">Amazon</span> <span class="chip" style="border-color:#CC0000">Target</span></div>
+    <p class="disclaimer">Prices are live estimates from retailer listings at the time of generation and may change.
+      43/43 items have a confirmed price. Click any product to open it on the retailer's site.</p>
+  </div>
+</div>
+<footer>Generated by Interior AI · demo · 6 rooms · 43 products</footer>
+</body>
+</html>
