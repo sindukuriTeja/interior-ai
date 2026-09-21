@@ -90,11 +90,13 @@ def index():
             if not os.path.isdir(p):
                 continue
             st = read_json(os.path.join(p, "status.json")) if os.path.exists(os.path.join(p, "status.json")) else {}
+            analysis = read_json(os.path.join(p, "analysis.json")) if os.path.exists(os.path.join(p, "analysis.json")) else {}
             projects.append({
                 "name": d,
                 "current_stage": st.get("current_stage"),
                 "updated_at": st.get("updated_at"),
                 "done": st.get("current_stage") == "done",
+                "input_type": analysis.get("input_type", "image"),
             })
     return render_template("index.html", projects=projects,
                            styles=["modern", "scandinavian", "industrial", "minimalist", "boho", "traditional"])
@@ -163,6 +165,10 @@ def input_file(name):
     p = os.path.join(PROJECTS, name)
     meta = read_json(os.path.join(p, "meta.json")) if os.path.exists(os.path.join(p, "meta.json")) else {}
     f = meta.get("input_file", "input.png")
+    is_video = os.path.splitext(f)[1].lower() in (".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v")
+    # for video inputs, serve a preview frame if we have one
+    if is_video and os.path.exists(os.path.join(p, "input_preview.jpg")):
+        return send_from_directory(p, "input_preview.jpg")
     return send_from_directory(p, f)
 
 

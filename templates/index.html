@@ -36,6 +36,10 @@ button.go:disabled { opacity:.5; cursor:not-allowed; }
   border-radius:12px; padding:14px 18px; margin-bottom:10px; }
 .proj .name { font-weight:600; font-size:16px; min-width:140px; }
 .proj .when { color:var(--muted); font-size:12px; }
+.tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:.5px; padding:2px 8px;
+  border-radius:10px; margin-left:8px; vertical-align:middle; }
+.tag.video { background:#2b3a55; color:#9fc2f0; }
+.tag.image { background:#2b3a2e; color:#8fd6a4; }
 .steps { display:flex; gap:6px; flex:1; flex-wrap:wrap; }
 .step { font-size:11px; padding:4px 10px; border-radius:14px; border:1px solid var(--line); color:var(--muted); }
 .step.done { border-color:var(--ok); color:var(--ok); }
@@ -88,7 +92,7 @@ footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; 
       {% for p in projects %}
       <div class="proj" data-name="{{ p.name }}">
         <div>
-          <div class="name">{{ p.name }}</div>
+          <div class="name">{{ p.name }}<span class="tag {{ p.input_type }}">{{ p.input_type }}</span></div>
           <div class="when">{{ p.updated_at or "" }}</div>
         </div>
         <div class="steps" data-steps></div>

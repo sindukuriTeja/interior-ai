@@ -67,3 +67,9 @@ Outputs land in `interior-ai/projects/myproj/`:
 - Amazon is the primary source (most complete data); a second platform is shown
   as an alternative for most items.
 - Video input: evenly-spaced frames are extracted and the clearest is analyzed.
+  The catalog shows a **🎬 Video** / **🖼 Image** badge so you can see what fed the design.
+
+## Included demos
+- `demo/` — a floor-plan **image** run (6 rooms, 43 products).
+- `demo-walkthrough/` — a **video** walkthrough run (5 rooms, 39 products). Open
+  `demo-walkthrough/catalog.html` in a browser to see the video-input result.

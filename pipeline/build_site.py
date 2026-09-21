@@ -276,6 +276,7 @@ footer {{ padding:40px 0; color:var(--muted); font-size:13px; text-align:center;
     <div class="sub">A complete interior design and shopping plan for your space — every product sourced
       from real stores with live prices and buy links. {esc(palette)}</div>
     <div class="meta">
+      <div class="pill"><b>{'🎬 Video' if analysis.get('input_type') == 'video' else '🖼 Image'}</b><span>Input</span></div>
       <div class="pill"><b>{f'{design.get("total_area_m2"):.0f}' if design.get("total_area_m2") else "—"}</b><span>Area (m²)</span></div>
       <div class="pill"><b>{design.get("bedrooms") or "—"}</b><span>Bedrooms</span></div>
       <div class="pill"><b>{design.get("bathrooms") or "—"}</b><span>Bathrooms</span></div>

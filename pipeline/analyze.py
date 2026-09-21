@@ -87,8 +87,15 @@ def main():
         # analyze the middle frame (usually the clearest plan view)
         target = frames[len(frames) // 2]
         images = [frames[0], target, frames[-1]]
+        # keep a preview of the clearest frame for the UI / catalog
+        try:
+            import shutil
+            shutil.copyfile(target, os.path.join(pdir, "input_preview.jpg"))
+        except Exception as e:
+            log(f"could not save video preview: {e}")
         prompt = (
             "These are frames from a video walkthrough / recording of a floor plan. "
+            "Pick the frame that shows the floor plan most clearly and extract the layout from it. "
             + ANALYZE_PROMPT
         )
     else:
