@@ -1,0 +1,62 @@
+{
+  "rooms": [
+    {
+      "name": "Entrance & Living Room",
+      "area_m2": 22.5,
+      "description": "A long, spacious main living area connecting the entrance to the balcony."
+    },
+    {
+      "name": "Balcony",
+      "area_m2": 4.5,
+      "description": "An outdoor balcony space accessible from the living room with a scenic view."
+    },
+    {
+      "name": "Kitchen",
+      "area_m2": 8.0,
+      "description": "An open-style kitchen with an L-shaped black granite countertop and sink."
+    },
+    {
+      "name": "Bedroom 1",
+      "area_m2": 12.0,
+      "description": "A bright bedroom featuring a large sliding window."
+    },
+    {
+      "name": "Bedroom 2",
+      "area_m2": 11.0,
+      "description": "A second bedroom with standard doorway access and tiled flooring."
+    },
+    {
+      "name": "Bathroom",
+      "area_m2": 4.5,
+      "description": "A fully tiled bathroom equipped with a sink, toilet, and glass shower partition."
+    },
+    {
+      "name": "Corridor",
+      "area_m2": 5.0,
+      "description": "An internal hallway connecting the living areas to the bedrooms and bathroom."
+    },
+    {
+      "name": "Utility Area",
+      "area_m2": 3.5,
+      "description": "A small dedicated utility space with a window, suitable for laundry or storage."
+    }
+  ],
+  "total_area_m2": 71.0,
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "features": [
+    "Balcony with sliding glass doors",
+    "Large windows in bedrooms",
+    "L-shaped kitchen countertop",
+    "Dedicated utility area",
+    "Glass shower partition in bathroom"
+  ],
+  "summary": "An undecorated, modern 2 BHK apartment layout featuring a spacious living room with an attached balcony, an open kitchen, a dedicated utility area, and well-lit bedrooms.",
+  "input_type": "video",
+  "input_file": "input.mp4",
+  "analyzed_images": [
+    "frame_000.jpg",
+    "frame_120.jpg",
+    "frame_200.jpg"
+  ]
+}

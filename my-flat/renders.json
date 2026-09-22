@@ -1,0 +1,44 @@
+[
+  {
+    "key": "living",
+    "name": "Entrance & Living Room",
+    "file": "renders/living.jpg",
+    "prompt": "Photorealistic interior design render, a spacious modern living room, low-profile sofa with layered area rug, accent armchair, warm wood coffee table, floor lamp, large windows with soft daylight, layered warm-white lighting, statement wall art. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "balcony",
+    "name": "Balcony",
+    "file": "renders/balcony.jpg",
+    "prompt": "Photorealistic interior design render, a cozy balcony with a rattan lounge chair, small side table, potted plants and greenery, outdoor rug, morning light, relaxed outdoor living. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "kitchen",
+    "name": "Kitchen",
+    "file": "renders/kitchen.jpg",
+    "prompt": "Photorealistic interior design render, a bright open kitchen with clean work surfaces, a central island with pendant lights, natural wood cabinets, matte finishes, quality cookware on open shelves, a coffee machine, warm inviting atmosphere. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "bedroom",
+    "name": "Bedroom 1",
+    "file": "renders/bedroom.jpg",
+    "prompt": "Photorealistic interior design render, a calm serene bedroom, queen bed with layered soft bedding on a soft rug, matching nightstands with warm bedside lamps, a dresser, blackout curtains, single wall art piece, soft natural light. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "bedroom",
+    "name": "Bedroom 2",
+    "file": "renders/bedroom.jpg",
+    "prompt": "Photorealistic interior design render, a calm serene bedroom, queen bed with layered soft bedding on a soft rug, matching nightstands with warm bedside lamps, a dresser, blackout curtains, single wall art piece, soft natural light. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "bath",
+    "name": "Bathroom",
+    "file": "renders/bath.jpg",
+    "prompt": "Photorealistic interior design render, a small spa-like bathroom, clean vanity with a backlit mirror, rainfall shower, soft towels, neutral tones, bright even lighting, feels larger and calmer. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  },
+  {
+    "key": "hall",
+    "name": "Corridor",
+    "file": "renders/hall.jpg",
+    "prompt": "Photorealistic interior design render, a welcoming entry hall, slim console table with a round wall mirror, a fiddle leaf fig plant, warm lighting, clean uncluttered transition space. warm modern style, warm whites and soft greys with walnut wood and brushed brass accents, oak flooring, boucle and linen textures. High-end architectural visualization, professional interior photography, soft natural light, ultra detailed, 8k."
+  }
+]
