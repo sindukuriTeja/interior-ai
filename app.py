@@ -30,13 +30,14 @@ app.config["MAX_CONTENT_LENGTH"] = 200 * 1024 * 1024  # 200 MB uploads
 UPLOADS = os.path.join(ROOT, "uploads")
 os.makedirs(UPLOADS, exist_ok=True)
 
-STAGE_ORDER = ["analyze", "design", "collect", "render", "build"]
+STAGE_ORDER = ["analyze", "design", "collect", "render", "build", "video_out"]
 STAGE_LABEL = {
     "analyze": "Analyzing floor plan",
     "design": "Creating design concept",
     "collect": "Collecting real products & prices",
     "render": "Generating interior renders",
     "build": "Building your catalog",
+    "video_out": "Creating your designed video",
 }
 
 _running = {}  # name -> thread
@@ -48,7 +49,8 @@ def safe_name(s):
 
 
 def run_pipeline(name, input_file, style):
-    stages = [
+    # hard stages: a failure stops the pipeline
+    hard = [
         ("analyze", ["analyze.py", name, input_file]),
         ("design", ["design.py", name, style]),
         ("collect", ["collect.py", name]),
@@ -56,8 +58,14 @@ def run_pipeline(name, input_file, style):
         ("build", ["build_site.py", name]),
         ("report", ["report.py", name]),
     ]
+    # soft stages: a failure is recorded but the pipeline still completes
+    # (the catalog + PDF are already ready at this point)
+    soft = [
+        ("video_out", ["video_out.py", name]),
+    ]
+    hard_stages = {s for s, _ in hard}
     try:
-        for stage, args in stages:
+        for stage, args in hard + soft:
             set_status(name, stage, 0, f"Starting {STAGE_LABEL[stage]}…", STAGE_ORDER)
             log(f"[{name}] running stage {stage}")
             proc = subprocess.run(
@@ -70,8 +78,11 @@ def run_pipeline(name, input_file, style):
                 write_json(os.path.join(project_dir(name), "error.json"),
                            {"stage": stage, "stderr": proc.stderr[-2000:]})
                 log(f"[{name}] stage {stage} FAILED")
-                return
-            log(f"[{name}] stage {stage} done")
+                if stage in hard_stages:
+                    return  # hard stage failed — stop
+                log(f"[{name}] soft stage {stage} failed — continuing")
+            else:
+                log(f"[{name}] stage {stage} done")
         set_status(name, "done", 100, "Complete — your catalog is ready", STAGE_ORDER)
         log(f"[{name}] pipeline complete")
     except Exception as e:
@@ -97,6 +108,7 @@ def index():
                 "updated_at": st.get("updated_at"),
                 "done": st.get("current_stage") == "done",
                 "input_type": analysis.get("input_type", "image"),
+                "has_video": os.path.exists(os.path.join(p, "output.mp4")),
             })
     return render_template("index.html", projects=projects,
                            styles=["modern", "scandinavian", "industrial", "minimalist", "boho", "traditional"])
@@ -144,6 +156,7 @@ def status(name):
         "done": st.get("current_stage") == "done",
         "error": err,
         "has_catalog": os.path.exists(os.path.join(p, "catalog.html")),
+        "has_video": os.path.exists(os.path.join(p, "output.mp4")),
     })
 
 
@@ -178,6 +191,14 @@ def report(name):
     if not os.path.isdir(p):
         return "not found", 404
     return send_from_directory(p, "report.pdf")
+
+
+@app.route("/project/<name>/output.mp4")
+def output_video(name):
+    p = os.path.join(PROJECTS, name)
+    if not os.path.isdir(p):
+        return "not found", 404
+    return send_from_directory(p, "output.mp4")
 
 
 if __name__ == "__main__":

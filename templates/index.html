@@ -46,6 +46,7 @@ button.go:disabled { opacity:.5; cursor:not-allowed; }
 .step.active { border-color:var(--accent); color:var(--accent); }
 .step.fail { border-color:var(--err); color:var(--err); }
 .open { background:var(--accent2); color:#04121c; font-weight:700; padding:8px 16px; border-radius:9px; }
+.open.video { background:var(--accent); color:#1a1206; }
 .empty { color:var(--muted); }
 .msg { margin-top:14px; font-size:14px; }
 .msg.err { color:var(--err); }
@@ -57,7 +58,8 @@ footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; 
   <div class="wrap">
     <h1>Interior <span>AI</span></h1>
     <p>Upload a floor plan (image or video) — get a complete interior design with real products,
-       live prices, and buy links from Amazon, Walmart, Target &amp; more.</p>
+       live prices, and buy links from Amazon, Walmart, Target &amp; more.
+       <b>Video in → your flat, fully designed, back as a video.</b></p>
   </div>
 </header>
 <div class="wrap">
@@ -97,6 +99,8 @@ footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; 
         </div>
         <div class="steps" data-steps></div>
         <a class="open" href="/project/{{ p.name }}/catalog" {% if not p.done %}style="visibility:hidden"{% endif %}>Open catalog</a>
+        <a class="open video" href="/project/{{ p.name }}/output.mp4" download
+           {% if not p.has_video %}style="visibility:hidden"{% endif %}>⬇ Video</a>
       </div>
       {% else %}
       <p class="empty">No projects yet — upload a floor plan above.</p>
@@ -107,8 +111,8 @@ footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; 
 <footer>Interior AI · floor plan in → furnished home out</footer>
 
 <script>
-const STAGES = ["analyze","design","collect","render","build"];
-const LABELS = {analyze:"Analyzing", design:"Designing", collect:"Products", render:"Rendering", build:"Building"};
+const STAGES = ["analyze","design","collect","render","build","video_out"];
+const LABELS = {analyze:"Analyzing", design:"Designing", collect:"Products", render:"Rendering", build:"Building", video_out:"Designed video"};
 let selectedFile = null;
 const drop = document.getElementById('drop'), file = document.getElementById('file'),
       go = document.getElementById('go'), msg = document.getElementById('msg');
